@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+
+public class Person
+{
+    public string Name { get; set; }
+
+    public Person(string name)
+    {
+        Name = name;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Name: {Name}");
+    }
+}
+
+public class Student : Person
+{
+    public string StudentId { get; set; }
+
+    public Student(string name, string studentId) : base(name)
+    {
+        StudentId = studentId;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine($"Student Name: {Name}, ID: {StudentId}");
+    }
+}
+
+public class Employee : Person
+{
+    public double Salary { get; set; }
+
+    public Employee(string name, double salary) : base(name)
+    {
+        Salary = salary;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine($"Employee Name: {Name}, Salary: {Salary}");
+    }
+}
+
+public class Teacher : Person
+{
+    public string CourseName { get; set; }
+
+    public Teacher(string name, string courseName) : base(name)
+    {
+        CourseName = courseName;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine($"Teacher Name: {Name}, Course: {CourseName}");
+    }
+}
+
+class Program
+{
+    public static void ShowPersonDetails(Person person)
+    {
+        person.DisplayInfo();
+    }
+
+    static void Main(string[] args)
+    {
+        List<Person> people = new List<Person>
+        {
+            new Student("Ali", "S12345"),
+            new Employee("Sara", 5000.0),
+            new Teacher("Dr. Ahmed", "Computer Science")
+        };
+
+        Console.WriteLine("--- Displaying Info & Runtime Types in Loop ---");
+        
+        foreach (Person person in people)
+        {
+            Console.WriteLine($"Runtime Type: {person.GetType().Name}");
+            person.DisplayInfo();
+            Console.WriteLine(new string('-', 40));
+        }
+
+        Console.WriteLine("\n--- Testing Helper Method ---");
+        
+        Person extraStudent = new Student("Khalid", "S67890");
+        ShowPersonDetails(extraStudent);
+    }
+}
