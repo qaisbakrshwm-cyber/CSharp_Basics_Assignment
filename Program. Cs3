@@ -1,0 +1,83 @@
+using System;
+
+public class Person
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+
+    public Person(string name, string email)
+    {
+        Console.WriteLine("Person constructor called");
+        Name = name;
+        Email = email;
+    }
+
+    public void DisplayBasicInfo()
+    {
+        Console.WriteLine($"Name: {Name}, Email: {Email}");
+    }
+}
+
+public class Student : Person
+{
+    public string StudentId { get; set; }
+    public double GPA { get; set; }
+
+    public Student(string name, string email, string studentId, double gpa) : base(name, email)
+    {
+        Console.WriteLine("Student constructor called");
+        StudentId = studentId;
+        GPA = gpa;
+    }
+}
+
+public class Employee : Person
+{
+    public string EmployeeId { get; set; }
+    public double Salary { get; set; }
+
+    public Employee(string name, string email, string employeeId, double salary) : base(name, email)
+    {
+        Console.WriteLine("Employee constructor called");
+        EmployeeId = employeeId;
+        Salary = salary;
+    }
+}
+
+public class Teacher : Employee
+{
+    public string CourseName { get; set; }
+
+    public Teacher(string name, string email, string employeeId, double salary, string courseName) 
+        : base(name, email, employeeId, salary)
+    {
+        Console.WriteLine("Teacher constructor called");
+        CourseName = courseName;
+    }
+
+    public void Teach()
+    {
+        Console.WriteLine($"Teacher {Name} is teaching {CourseName}.");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("--- Creating Student Object ---");
+        Student student = new Student("Ali", "ali@example.com", "S123", 3.8);
+        
+        Console.WriteLine("\n--- Student Methods ---");
+        student.DisplayBasicInfo();
+
+        Console.WriteLine("\n==================================");
+
+        Console.WriteLine("--- Creating Teacher Object ---");
+        Teacher teacher = new Teacher("Dr. Ahmed", "ahmed@example.com", "E456", 7500.0, "Computer Science");
+
+        Console.WriteLine("\n--- Teacher Methods ---");
+        teacher.DisplayBasicInfo();
+        teacher.Teach();
+    }
+}
